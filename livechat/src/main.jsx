@@ -7,7 +7,9 @@ import Cookies from "js-cookie";
 import theme from './Components/Pages/ThemeProvider.jsx'
 import { ThemeProvider } from '@emotion/react'
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/'
+// axios.defaults.baseURL = 'http://127.0.0.1:8000/'
+axios.defaults.baseURL = 'https://zoro-ai-api.onrender.com/'
+
 
 const token = Cookies.get('token');
 
