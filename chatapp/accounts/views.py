@@ -102,8 +102,18 @@ class RegisterViewSet(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         try:
-            return super().create(request, *args, **kwargs)
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            user = serializer.save()
+
+            return Response(
+                UserSerializer(user).data,
+                status=status.HTTP_201_CREATED
+            )
+
         except Exception as e:
+            print(traceback.format_exc())  # This prints to Render logs
+
             return Response(
                 {
                     "error": str(e),
