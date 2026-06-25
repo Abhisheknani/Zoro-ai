@@ -208,10 +208,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-REDIS_URL = config(
-    "REDIS_URL",
-    default="redis://redis:6379/0"
-)
+REDIS_URL = config("REDIS_URL", default=None)
+
+if REDIS_URL:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": REDIS_URL,
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            },
+        }
+    }
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        }
+    }
 
 CACHES = {
     "default": {
