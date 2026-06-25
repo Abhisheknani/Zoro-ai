@@ -23,7 +23,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 async function* streamChat(convId, msg) {
   const token = Cookies.get('token');
-  const resp = await fetch('http://127.0.0.1:8000/api/V1/chat/stream/chat/', {
+  const resp = await fetch('chat/stream/chat/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
     body: JSON.stringify({ conversation: convId, role: 'user', content: msg }),
